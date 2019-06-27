@@ -18,6 +18,7 @@
                     </button>
                 </div>
                 <div class="settings">
+                    <div class="settings-label">Spotify URI</div>
                     <form v-on:submit="saveURI">
                         <input type="text" v-model="uri" placeholder="Spotify URI">
                     </form>
@@ -80,6 +81,7 @@ export default {
     position: relative;
     perspective: 1000px;
     overflow: hidden;
+    font-family: monospace;
 }
 .widget {
     position: relative;
@@ -129,7 +131,7 @@ input:hover{
 	backface-visibility: hidden;
 }
 .front{
-    background-color: black;
+    background-color: #191414;
     z-index: 2;
     color: white;
 }
@@ -149,16 +151,19 @@ input:hover{
 }
 .header-text{
     padding: 10px;
+    font-size: 20px;
+    color: white;
 }
 .header-btn{
     padding:10px;
+    color: white;
     transition: .2s ease-out all;
 }
-.f-btn{
-    color: white;
-}
 .f-btn:hover{
-    background-color:  #20C75A;
+    background-color:  #1DB954;
+}
+.b-btn:hover{
+    background-color:  #191414;
 }
 button{
     background: none;
@@ -167,6 +172,12 @@ button{
 }
 .settings{
     padding: 0 10px;
+    background-color: #191414;
+    height: 100%;
+    color: white;
+}
+.settings-label{
+    padding: 10px 0;
 }
 </style>
 
