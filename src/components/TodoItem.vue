@@ -16,8 +16,9 @@ export default {
 .td-item{
     padding: 2px 0;
     display: grid;
-    grid-template-columns: auto 1fr 25px;
+    grid-template-columns: auto 1fr 20px;
     align-items: center;
+    font-size: 16px;
 }
 .todo{
     margin-left: 10px;
@@ -33,8 +34,8 @@ export default {
     background-color: rgba(0,0,0,0);
     outline: none;
     color: white;
-    font-size: 23px;
-    padding: 0 5px;
+    font-size: 18px;
+    padding: 0 0;
     text-align: center;
     transition: ease-out 0.2s;
     border-radius: 50%;

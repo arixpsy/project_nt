@@ -8,13 +8,14 @@
       <Clock />
       <Weather />
       <TodoApp />
+      <Spotify />
     </main>
   </div>
 </template>
 <script>
 import Clock from './components/Clock.vue'
 import Weather from './components/Weather.vue'
-//import Fill from './components/Fill.vue'
+import Spotify from './components/Spotify.vue'
 import TodoApp from './components/TodoApp'
 
 export default {
@@ -22,7 +23,8 @@ export default {
   components: {
     Clock,
     Weather,
-    TodoApp
+    TodoApp,
+    Spotify
   }
 }
 </script>
@@ -85,6 +87,11 @@ p {
 @media screen and (max-width: 625px) {
   .container{
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 525px) {
+  .container{
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 </style>

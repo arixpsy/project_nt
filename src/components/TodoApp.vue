@@ -2,13 +2,17 @@
     <div class="todoapp">
         <div class="header"><span>Task List:</span><span>{{complete}}/{{total}}</span></div>
         <TodoInsert v-on:addTodo="addTodo" />
-        <div class="empty-msg" v-if="todolist.length < 1">No tasks to be completed</div>
-        <div class="todo-container">
-            <transition-group name="list">
-                <div  v-bind:key="todo.id" v-for="todo in todolist" class="todo-item">
-                    <TodoItem v-bind:todo="todo" v-on:deleteTodo="deleteTodo" v-on:toggleTodo="toggleTodo"/>
-                </div>
-            </transition-group>
+        <div class="todo-container-wrapper">
+            <transition name="fade">
+                <div class="empty-msg" v-if="todolist.length < 1">No tasks to be completed</div>
+            </transition>
+            <div class="todo-container">
+                <transition-group name="list">
+                    <div  v-bind:key="todo.id" v-for="todo in todolist" class="todo-item">
+                        <TodoItem v-bind:todo="todo" v-on:deleteTodo="deleteTodo" v-on:toggleTodo="toggleTodo"/>
+                    </div>
+                </transition-group>
+            </div>
         </div>
     </div>
 </template>
@@ -75,10 +79,10 @@ export default {
     font-family: monospace;
     background-image: linear-gradient(to top right, #FE6F6F, #FE7576);
     grid-column: span 1;
-    grid-row: span 2;
+    grid-row: span 1;
     font-size: 25px;
     color: white;
-    padding: 10px;
+    padding: 15px;
     max-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -91,12 +95,23 @@ export default {
 .empty-msg{
     font-size: 16px;
     text-align: center;
-    padding: 20px 15px;
+    padding: 20px 0px;
+    position: absolute;
+    top:0px;
+    left:0px;
+    right: 0px;
+}
+.todo-container-wrapper{
+    position: relative;
+    max-height: inherit;
+    min-height: 60px;
+    overflow: auto;
 }
 .todo-container{
     margin-top: 10px;
     overflow-y: auto;
     height: 100%;
+    transition: ease-out 0.5s;
 }
 .list-enter-active, .list-leave-active {
     transition: all 0.5s;
@@ -107,5 +122,20 @@ export default {
 }
 .list-enter{
     transform: translateY(10px);
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+.fade-enter-active  {
+    transition: all 1s;
+}
+.fade-leave-active{
+    transition: all 0.5s;
+}
+.fade-enter {
+    transform: scale(0);
+}
+.fade-leave-to{
+    transform: scale(0);
 }
 </style>

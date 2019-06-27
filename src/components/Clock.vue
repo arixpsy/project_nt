@@ -56,8 +56,8 @@ export default {
 
 <style scoped>
 .clock{
-    grid-row: span 2;
-    grid-column: span 2;
+    grid-row: span 1;
+    grid-column: span 1;
     color: white;
     height: 100%;
     width: 100%;
@@ -68,29 +68,30 @@ export default {
     flex-direction: column;
     justify-content: center;
     text-align: center; 
+    padding: 15px;
 }
 .clock:hover > .date{
-    font-size: 35px
+    font-size: 22px
 }
 .clock:hover > .time{
-    font-size: 70px
+    font-size: 50px
 }
 .clock:hover > .lunch{
-    font-size: 35px
+    font-size: 22px
 }
 .date{
     transition: 0.4s;
     display: block;
-    font-size: 30px;
+    font-size: 20px;
 }
 .time{
     transition: 0.4s;
     display: block;
-    font-size: 60px;
+    font-size: 45px;
 }
 .lunch{
     transition: 0.4s;
     display: block;
-    font-size: 30px;
+    font-size: 20px;
 }
 </style>

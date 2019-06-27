@@ -10,8 +10,11 @@
             <div class="misc-data">
                 <font-awesome-icon icon="cloud" /><div class="cloudiness">{{cloudiness}}</div>
                 <font-awesome-icon icon="wind" /><div class="windspeed">{{windspeed}}</div>
+                <div class="misc-tooltip">Cloudiness</div><div class="misc-tooltip">Windspeed</div>
+
                 <font-awesome-icon icon="tint" /><div class="humidity">{{humidity}}</div>
                 <font-awesome-icon icon="thermometer-half" /><div class="temp">{{temp}}</div>
+                <div class="misc-tooltip">Humidity</div><div class="misc-tooltip">Temperature</div>
             </div>
         </div>
     </div>
@@ -348,10 +351,11 @@ export default {
 .weather{
     position: relative;
     grid-column: span 1;  
-    grid-row: span 2;
+    grid-row: span 1;
     background-image: linear-gradient(to top right, #225BE5, #4473E9);
     display: flex;
     align-items: center;
+    padding: 15px;
 } 
 .weather-display-data{
     display: flex;
@@ -377,6 +381,16 @@ export default {
     grid-template-columns: auto 1fr auto 1fr;
     grid-gap: 5px;
     justify-items: center;
+}
+.misc-tooltip{
+    grid-column: span 2;
+    font-size: 10px;
+    height: 0px;
+    overflow: hidden;
+    transition: height 0.2s ease-out;
+}
+.misc-data:hover .misc-tooltip{
+    height: 10px;
 }
 .err{
     margin: 30px 0;
