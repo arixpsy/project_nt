@@ -1,6 +1,7 @@
 <template>
     <div class="spotify">
         <div class="spotify-content" id="card">
+            <!-- Front Face of the widget -->
             <div class="face front">
                 <div class="header">
                     <span class="f-header header-text">Spotify Player</span>
@@ -10,6 +11,7 @@
                 </div>
                 <div id="widget" class="widget"></div>
             </div>
+            <!-- Back Face of the widget -->
             <div class="face back">
                 <div class="header">
                     <span class="b-head header-text">Settings</span>
@@ -18,23 +20,56 @@
                     </button>
                 </div>
                 <div class="settings">
-                    <div class="settings-label">Spotify URI</div>
+                    <div class="settings-label">Spotify URI:</div>
                     <form v-on:submit="saveURI">
                         <input type="text" v-model="uri" placeholder="Spotify URI">
                     </form>
+                    <div class="error-label" v-if="uriError">- Invalid URI -</div>
+                    <div class="settings-label">Spotify Login:</div>
+                    <div class="spotify-welcome" v-if="loggedIn">
+                        You are currently logged in as {{user}}
+                    </div>
+                    <div class="spotify-login" v-else>
+                        <form v-on:submit="spotifyLogin">
+                            <input type="text" v-model="login_id" placeholder="Email/Username">
+                            <input type="password" v-model="login_password" placeholder="Password">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+
+
 export default {
     name: 'spotify',
     data(){
         return {
             uri: '',
-            urierror: false
+            uriError: false,
+            loggedIn: false,
+            login_id: '',
+            login_password: '',
+            user: 'Arix'
         }
+    },
+    created(){
+        //user details ng-binding
+        let URL = 'https://accounts.spotify.com/en/login'
+        fetch(URL,{
+            method:'GET',
+            header:{ 
+                "Access-Control-Allow-Origin": "http://localhost:8080"
+                
+        },credentials: "same-origin"
+        
+        }).then((response)=>{
+            return response.text();
+        }).then((data)=>{
+            console.log(data);
+        })
     },
     mounted(){
         this.uri = localStorage.getItem('project_nt-spotify_uri');
@@ -44,12 +79,24 @@ export default {
             this.reloadWidget();
         }
     },
+    watch: {
+        uri: function (){
+            let regexChk = /spotify:(artist|album|playlist|track):\w+/g;
+            if(regexChk.test(this.uri)){
+                this.uriError = false;
+            }else{
+                this.uriError = true;
+            }
+        }
+    },
     methods: {
+        spotifyLogin: function(){
+
+        },
         reloadWidget: function(){
             //spotify:playlist:2JYgKFqYFPsEw7HreR5Uz2
             let type = this.uri.split(':')[1];
             let id = this.uri.split(':')[2];
-            console.log(type + '     ' + id);
             let widget = document.getElementById('widget');
             widget.innerHTML = `<iframe src="https://open.spotify.com/embed/${type}/${id}" 
             style="border: 0; width: 100%; min-height: 380px;"
@@ -59,9 +106,11 @@ export default {
         },
         saveURI: function (e){
             e.preventDefault();
-            localStorage.setItem('project_nt-spotify_uri',this.uri);
-            this.reloadWidget();
-            this.flipCard();
+            if(!this.uriError){
+                localStorage.setItem('project_nt-spotify_uri',this.uri);
+                this.reloadWidget();
+                this.flipCard();
+            }
         },
         flipCard: function(){
             let card = document.getElementById('card');
@@ -71,7 +120,6 @@ export default {
                 card.classList.add('flipped');
             }
         }
-
     }
         
 }
@@ -177,7 +225,12 @@ button{
     color: white;
 }
 .settings-label{
-    padding: 10px 0;
+    padding: 15px 0px 5px 0px;
+}
+.error-label{
+    text-align: center;
+    font-size: 10px;
+    color: crimson;
 }
 </style>
 
