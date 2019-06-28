@@ -58,14 +58,7 @@ export default {
     created(){
         //user details ng-binding
         let URL = 'https://accounts.spotify.com/en/login'
-        fetch(URL,{
-            method:'GET',
-            header:{ 
-                "Access-Control-Allow-Origin": "http://localhost:8080"
-                
-        },credentials: "same-origin"
-        
-        }).then((response)=>{
+        fetch(URL).then((response)=>{
             return response.text();
         }).then((data)=>{
             console.log(data);
